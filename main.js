@@ -27,6 +27,8 @@ const tomb = [
     }
 ]
 
+formGeneralas()
+
 const h1 = document.createElement("h1")
 h1.innerHTML = "Híres Magyar Uralkodók és Események"
 document.body.appendChild(h1)
@@ -191,4 +193,63 @@ function validacio2(htmlelem1, htmlelem2, errorsz){
         }
     }
     return valid
+}
+
+function formGeneralas(){
+    const h2 = document.createElement('h2')
+    h2.innerHTML = "Uralkodó hozzáadása"
+    document.body.appendChild(h2)
+
+    const formt = [
+        {
+            label: "Uralkodó neve:",
+            id: "uralkodo_nev"
+        },
+        {
+            label: "Első esemény:",
+            id: "esemeny1"
+        },
+        {
+            label: "Első esemény évszáma:",
+            id: "evszam1"
+        },
+        {
+            label: "Második esemény:",
+            id: "esemeny2"
+        },
+        {
+            label: "Második esemény évszáma:",
+            id: "evszam2"
+        }
+    ]
+
+    const form = document.createElement('form')
+    form.id = "form"
+    form.action = "#"
+    document.body.appendChild(form)
+
+    for(let i = 0; i < formt.length; i++){
+        const div = document.createElement('div')
+        form.appendChild(div)
+        const label = document.createElement('label')
+        label.innerHTML = formt[i].label
+        div.appendChild(label)
+        const br1 = document.createElement('br')
+        div.appendChild(br1)
+        const input = document.createElement('input')
+        input.type = "text"
+        input.id = formt[i].id
+        input.name = formt[i].id
+        div.appendChild(input)
+        const br2 = document.createElement('br')
+        div.appendChild(br2)
+        const span =  document.createElement('span')
+        span.classList = "error"
+        div.appendChild(span)
+        const br3 = document.createElement('br')
+        div.appendChild(br3)
+    }
+    const button = document.createElement('button')
+    button.innerHTML = "Hozzáadás"
+    form.appendChild(button)
 }
