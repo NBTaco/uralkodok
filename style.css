@@ -1,0 +1,23 @@
+table td,th{ 
+    border: 1px solid black;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+tr th:first-child{
+    background-color: aquamarine;
+}
+
+tr td:nth-last-of-type(3){
+    background-color: aquamarine;
+}
+
+tr th:last-child{
+    background-color: aquamarine;
+}
+
+tr td:last-child{
+    background-color: aquamarine;
+}
