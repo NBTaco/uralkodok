@@ -21,3 +21,7 @@ tr th:last-child{
 tr td:last-child{
     background-color: aquamarine;
 }
+
+.error{
+    color: red;
+}
