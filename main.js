@@ -1,255 +1,102 @@
-const tomb = [
+const tomb = [ //letrehozom a tomb-ot, ami alapján a tablazat generalodik
     { 
-        uralkodo: "I. István",
-        esemeny: "Koronázás",
-        evszam: "1000",
-        esemeny2: "Pannonhalmi apátság megalapítása",
-        evszam2: "1001"
+        uralkodo: "I. István", //a tomb 1. objektumanak uralkodo tulajdonsága "I. István"
+        esemeny: "Koronázás", //a tomb 1. objektumanak esemeny tulajdonsága "Koronázás"
+        evszam: "1000", //a tomb 1. objektumanak evszam tulajdonsága "1000"
+        esemeny2: "Pannonhalmi apátság megalapítása", //a tomb 1. objektumanak esemeny2 tulajdonsága "Pannonhalmi apátság megalapítása"
+        evszam2: "1001" //a tomb 1. objektumanak evszam2 tulajdonsága "1001"
     },
     { 
-        uralkodo: "IV. Béla",
-        esemeny: "tatárjárás",
-        evszam: "1241-1242"
+        uralkodo: "IV. Béla", //a tomb 2. objektumanak uralkodo tulajdonsága "IV. Béla"
+        esemeny: "tatárjárás", //a tomb 2. objektumanak esemeny tulajdonsága "tatárjárás"
+        evszam: "1241-1242" //a tomb 2. objektumanak evszam tulajdonsága "1241-1242"
     },
     { 
-        uralkodo: "Mátyás király",
-        esemeny: "Bécs elfoglalása",
-        evszam: "1485",
-        esemeny2: "Kenyérmezei csata",
-        evszam2: "1479"
+        uralkodo: "Mátyás király", //a tomb 3. objektumanak uralkodo tulajdonsága "Mátyás király"
+        esemeny: "Bécs elfoglalása", //a tomb 3. objektumanak esemeny tulajdonsága "1485"
+        evszam: "1485", //a tomb 3. objektumanak evszam tulajdonsága "Mátyás király"
+        esemeny2: "Kenyérmezei csata", //a tomb 3. objektumanak esemeny2 tulajdonsága "Kenyérmezei csata"
+        evszam2: "1479" //a tomb 3. objektumanak evszam2 tulajdonsága "1479"
     },
     { 
-        uralkodo: "II. Rákóczi Ferenc",
-        esemeny: "A szabadságharc kezdete",
-        evszam: "1703",
-        esemeny2: "A szabadságharc vége",
-        evszam2: "1711"
+        uralkodo: "II. Rákóczi Ferenc", //a tomb 4. objektumanak uralkodo tulajdonsága "II. Rákóczi Ferenc"
+        esemeny: "A szabadságharc kezdete", //a tomb 4. objektumanak esemeny tulajdonsága "A szabadságharc kezdete"
+        evszam: "1703", //a tomb 4. objektumanak evszam tulajdonsága "1703"
+        esemeny2: "A szabadságharc vége", //a tomb 4. objektumanak esemeny2 tulajdonsága "A szabadságharc vége"
+        evszam2: "1711" //a tomb 4. objektumanak evszam2 tulajdonsága "1711"
     }
 ]
 
-formGeneralas()
+formGeneralas() //megivom a formGeneralas fuggvenyt
 
-const h1 = document.createElement("h1")
-h1.innerHTML = "Híres Magyar Uralkodók és Események"
-document.body.appendChild(h1)
+const h1 = document.createElement("h1") //letrehozok egy h1-et
+h1.innerHTML = "Híres Magyar Uralkodók és Események" //a h1 szövege "Híres Magyar Uralkodók és Események"
+document.body.appendChild(h1) //a h1-et hozzáadom a bodyhoz
 
-const table = document.createElement("table")
-document.body.appendChild(table)
+const table = document.createElement("table") //letrehozom a table-t
+document.body.appendChild(table) //a table-t hozzáadom a bodyhoz
 
-RenderTable(tomb)
+RenderTable(tomb)  //meghivom a RenderTable fuggvenyt a tomb paraméterrel
 
-function fejlecGeneralas(){
-    const fejlec = { 
-        uralkodo: "Uralkodó",
-        esemeny: "Esemény",
-        evszam: "Évszám"
-    }
+const form = document.getElementById('form') //a form id-s formot kiveszem egy form valtozoba
 
-    const thead = document.createElement('thead')
-    table.appendChild(thead)
-    const tr = document.createElement('tr')
-    thead.appendChild(tr)
+form.addEventListener('submit', function(e){ //a form submit esemenyere teszek egy esemenykezelot
+e.preventDefault() //meggatolom az alapvető mukodest
 
-    for(const i in fejlec){
-        const th = document.createElement("th")
-        th.innerHTML = fejlec[i]
-        tr.appendChild(th)
-    }
-}
+const uralkodoHTML = document.getElementById('uralkodo_nev') //az uralkodoHTML valtozoba kiveszem a uralkodo_nev id-s elemet
+const esemenyHTML = document.getElementById('esemeny1') //az esemenyHTML valtozoba kiveszem a esemeny1 id-s elemet
+const evszamHTML = document.getElementById('evszam1') //az evszamHTML valtozoba kiveszem a evszam1 id-s elemet
+const esemeny2HTML = document.getElementById('esemeny2') //az esemeny2HTML valtozoba kiveszem a esemeny2 id-s elemet
+const evszam2HTML = document.getElementById('evszam2') //az evszam2HTML valtozoba kiveszem a evszam2 id-s elemet
 
-function RenderTable(array){
-    fejlecGeneralas()
+const uralkodoV = uralkodoHTML.value //az uralkodoV erteke a uralkodoHTML erteke lesz
+const esemenyV = esemenyHTML.value //az esemenyV erteke a esemenyHTML erteke lesz
+const evszamV = evszamHTML.value //az evszamV erteke a evszamHTML erteke lesz
+const esemeny2V = esemeny2HTML.value //az esemeny2V erteke a esemeny2HTML erteke lesz
+const evszam2V = evszam2HTML.value //az evszam2V erteke a evszam2HTML erteke lesz
 
-    const tbody = document.createElement('tbody')
-    table.appendChild(tbody)
-    
-    for(let i = 0; i < array.length; i++){
-        const tr1 = document.createElement('tr')
-        const tr2 = document.createElement('tr')
-        tbody.appendChild(tr1)
-        tbody.appendChild(tr2)
+let valid = true //a valid alap erteke true
+const errorszoveg = "A mező kitöltése kötelező!" //az 1. errorszoveg "A mező kitöltése kötelező!"
+const errorszoveg2 = "Minden eseményhez kell tartoznia évszámnak" //a 2. errorszoveg "Minden eseményhez kell tartoznia évszámnak!"
+const aktualis = e.currentTarget  //az aktualis valtozo az aktualis elem
+const errorok = aktualis.querySelectorAll('.error') //az errorkba kiveszem az aktualis error classos elemeit
 
-        const akt = array[i]
-        index = 0
-
-        for(const j in akt){
-            if(index === 0){
-                const td = document.createElement('td')
-                td.innerHTML = akt[j]
-                td.rowSpan = 2
-                tr1.appendChild(td)
-            }
-            else if(index <= 2 && index >= 1){
-                const td = document.createElement('td')
-                td.innerHTML = akt[j]
-                tr1.appendChild(td)
-            }
-            else if(index <= 4 && index >= 3){
-                const td = document.createElement('td')
-                td.innerHTML = akt[j]
-                tr2.appendChild(td)
-            }  
-            index++
-        }
-    }
-}
-
-const form = document.getElementById('form')
-
-form.addEventListener('submit', function(e){
-e.preventDefault()
-
-const uralkodoHTML = document.getElementById('uralkodo_nev')
-const esemenyHTML = document.getElementById('esemeny1')
-const evszamHTML = document.getElementById('evszam1')
-const esemeny2HTML = document.getElementById('esemeny2')
-const evszam2HTML = document.getElementById('evszam2')
-
-const uralkodoV = uralkodoHTML.value
-const esemenyV = esemenyHTML.value
-const evszamV = evszamHTML.value
-const esemeny2V = esemeny2HTML.value
-const evszam2V = evszam2HTML.value
-
-let valid = true
-const errorszoveg = "A mező kitöltése kötelező!"
-const errorszoveg2 = "Minden eseményhez kell tartoznia évszámnak"
-const aktualis = e.currentTarget 
-const errorok = aktualis.querySelectorAll('.error') 
-
-for(const i of errorok)
-    i.innerHTML = ""
+for(const i of errorok) //vegigmegyek az aerrorokon
+    i.innerHTML = "" //mindegyik error ures
 
 
-if(!validacio(uralkodoHTML, errorszoveg))
-    valid = false
+if(!validacio(uralkodoHTML, errorszoveg)) //ha az uralkodoHTML ures akkor megyunk be 
+    valid = false //a valid erteke false
 
-if(!validacio(esemenyHTML, errorszoveg))
-    valid = false
+if(!validacio(esemenyHTML, errorszoveg)) //ha az esemenyHTML ures akkor megyunk be 
+    valid = false //a valid erteke false
 
-if(!validacio(evszamHTML, errorszoveg))
-    valid = false
+if(!validacio(evszamHTML, errorszoveg)) //ha az evszamHTML ures akkor megyunk be 
+    valid = false //a valid erteke false
 
-if(!validacio2(esemeny2HTML, evszam2HTML, errorszoveg2))
-    valid = false
+if(!validacio2(esemeny2HTML, evszam2HTML, errorszoveg2)) //ha az esemeny2HTML evszam2HTML küzöl valamelyik üres akkor megyunk be
+    valid = false //a valid erteke false
 
-if(valid) {
-    if(esemeny2V == "" || evszam2V == "" ){
-        const ujObj = { 
-            uralkodo: uralkodoV,
-            esemeny: esemenyV,
-            evszam: evszamV,
-        }
-        tomb.push(ujObj)
+if(valid) {//ha a valid true akkor megyunk be
+    if(esemeny2V == "" || evszam2V == "" ){ //ha az esemeny2V vagy az evszam2V üres akkor megyunk be
+        const ujObj = {  //letrehozunk egy uj objektumot
+            uralkodo: uralkodoV, //az objektum uralkodo tulajdonsaga uralkodoV
+            esemeny: esemenyV, //az esemeny uralkodo tulajdonsaga esemenyV
+            evszam: evszamV, //az evszam uralkodo tulajdonsaga evszamV
+        } 
+        tomb.push(ujObj)//a tombhoz hozzáadom atz uj objektumot
     }
     else{
-        const ujObj = { 
-        uralkodo: uralkodoV,
-        esemeny: esemenyV,
-        evszam: evszamV,
-        esemeny2: esemeny2V,
-        evszam2: evszam2V
+        const ujObj = { //letrehozunk egy uj objektumot 
+        uralkodo: uralkodoV, //az objektum uralkodo tulajdonsaga uralkodoV
+        esemeny: esemenyV, //az esemeny uralkodo tulajdonsaga esemenyV
+        evszam: evszamV, //az evszam uralkodo tulajdonsaga evszamV
+        esemeny2: esemeny2V, //az esemeny2 uralkodo tulajdonsaga esemeny2V
+        evszam2: evszam2V //az evszam2 uralkodo tulajdonsaga evszam2V
     }
-    tomb.push(ujObj)
+    tomb.push(ujObj)//a tombhoz hozzáadom atz uj objektumot
     }
 }
-table.innerHTML = ""
-RenderTable(tomb)
+table.innerHTML = "" //a table-t clearelem egy ures stringel
+RenderTable(tomb)//meghivom a RenderTable fuggvenyt a tomb paraméterrel
 })
-
-function validacio(htmlelem, errorsz){ 
-    let valid = true 
-    if(htmlelem.value === ""){
-        const parent = htmlelem.parentElement
-        const errorhely = parent.querySelector(".error") 
-        if(errorhely != ""){
-            errorhely.innerHTML = errorsz
-        }
-        valid = false
-    }
-    return valid 
-}
-
-function validacio2(htmlelem1, htmlelem2, errorsz){ 
-    let valid = true
-    const parent1 = htmlelem1.parentElement
-    const parent2 = htmlelem2.parentElement
-
-    const errorhely1 = parent1.querySelector('.error')
-    const errorhely2 = parent2.querySelector('.error')
-
-    if(!validacio(htmlelem1, errorsz) && !validacio(htmlelem2, errorsz)){
-        errorhely1.innerHTML = ""
-        errorhely2.innerHTML = ""
-    }
-    else{
-        if(!validacio(htmlelem1, errorsz)){
-            errorhely1.innerHTML = errorsz
-            valid = false
-        }
-        if(!validacio(htmlelem2, errorsz)){
-            errorhely2.innerHTML = errorsz
-            valid = false
-        }
-    }
-    return valid
-}
-
-function formGeneralas(){
-    const h2 = document.createElement('h2')
-    h2.innerHTML = "Uralkodó hozzáadása"
-    document.body.appendChild(h2)
-
-    const formt = [
-        {
-            label: "Uralkodó neve:",
-            id: "uralkodo_nev"
-        },
-        {
-            label: "Első esemény:",
-            id: "esemeny1"
-        },
-        {
-            label: "Első esemény évszáma:",
-            id: "evszam1"
-        },
-        {
-            label: "Második esemény:",
-            id: "esemeny2"
-        },
-        {
-            label: "Második esemény évszáma:",
-            id: "evszam2"
-        }
-    ]
-
-    const form = document.createElement('form')
-    form.id = "form"
-    form.action = "#"
-    document.body.appendChild(form)
-
-    for(let i = 0; i < formt.length; i++){
-        const div = document.createElement('div')
-        form.appendChild(div)
-        const label = document.createElement('label')
-        label.innerHTML = formt[i].label
-        div.appendChild(label)
-        const br1 = document.createElement('br')
-        div.appendChild(br1)
-        const input = document.createElement('input')
-        input.type = "text"
-        input.id = formt[i].id
-        input.name = formt[i].id
-        div.appendChild(input)
-        const br2 = document.createElement('br')
-        div.appendChild(br2)
-        const span =  document.createElement('span')
-        span.classList = "error"
-        div.appendChild(span)
-        const br3 = document.createElement('br')
-        div.appendChild(br3)
-    }
-    const button = document.createElement('button')
-    button.innerHTML = "Hozzáadás"
-    form.appendChild(button)
-}
